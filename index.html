@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Switch to Visible – Get $20 Off with a Friend Referral</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f4f6ff;
+      --surface: #ffffff;
+      --surface2: #e8edff;
+      --accent: #002fa7;
+      --accent2: #1a4fd6;
+      --neon: #002fa7;
+      --text: #0a0e2e;
+      --muted: #5a6690;
+      --border: rgba(0,47,167,0.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Nunito', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.2;
+    }
+
+    /* ── BACKGROUND BLOBS ── */
+    .bg-blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.07;
+    }
+    .blob-1 { width: 600px; height: 600px; background: #002fa7; top: -150px; left: -150px; }
+    .blob-2 { width: 500px; height: 500px; background: #1a4fd6; bottom: -100px; right: -100px; }
+    .blob-3 { width: 300px; height: 300px; background: #6ee7ff; top: 40%; left: 55%; }
+
+    /* ── NAV ── */
+    nav {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 48px;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+    .nav-brand {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      letter-spacing: -0.01em;
+    }
+    .nav-brand span { color: var(--accent2); }
+    .nav-pill {
+      font-size: 0.78rem;
+      background: rgba(0,47,167,0.08);
+      color: var(--accent);
+      border: 1px solid rgba(0,47,167,0.25);
+      padding: 6px 14px;
+      border-radius: 999px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 48px 24px 60px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 18px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 36px;
+      animation: fadeUp 0.6s ease both;
+    }
+    .badge-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    h1 {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(2.6rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      max-width: 900px;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+    h1 .highlight {
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      margin-top: 24px;
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.65;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    /* ── CTA ── */
+    .cta-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      margin-top: 48px;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #002fa7, #1a4fd6);
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      padding: 18px 40px;
+      border-radius: 14px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      box-shadow: 0 0 40px rgba(0,47,167,0.5);
+      letter-spacing: -0.01em;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 0 60px rgba(0,47,167,0.7);
+    }
+    .btn-arrow { font-size: 1.2em; }
+    .cta-note { font-size: 0.82rem; color: var(--muted); }
+    .cta-note strong { color: var(--accent); font-weight: 700; }
+
+    /* ── REFERRAL CODE CARD ── */
+    .code-section {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      padding: 0 24px 80px;
+      animation: fadeUp 0.7s 0.4s ease both;
+    }
+    .code-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 40px;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 4px 24px rgba(0,47,167,0.10);
+    }
+    .code-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .code-value {
+      font-family: 'Nunito', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+    }
+    .copy-btn {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 12px 24px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background 0.15s, border-color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .copy-btn:hover { background: rgba(0,47,167,0.06); border-color: rgba(0,47,167,0.3); }
+    .copy-btn.copied { color: var(--accent); border-color: rgba(0,47,167,0.4); }
+
+    /* ── FEATURES ── */
+    .features {
+      position: relative;
+      z-index: 1;
+      padding: 20px 24px 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature-card:hover { border-color: rgba(0,47,167,0.5); transform: translateY(-3px); }
+    .feature-icon {
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+    }
+    .feature-title {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+    .feature-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── HOW IT WORKS ── */
+    .how {
+      position: relative;
+      z-index: 1;
+      padding: 20px 24px 80px;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .section-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 48px;
+      letter-spacing: -0.01em;
+    }
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      text-align: left;
+      position: relative;
+      padding-bottom: 40px;
+    }
+    .step:last-child { padding-bottom: 0; }
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 44px;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: #ffffff;
+    }
+    .step-content h3 {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+    .step-content p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── BOTTOM CTA ── */
+    .bottom-cta {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 60px 24px 80px;
+      border-top: 1px solid var(--border);
+    }
+    .bottom-cta p { color: var(--muted); font-size: 0.88rem; margin-top: 20px; }
+    .bottom-cta p a { color: var(--accent); text-decoration: none; }
+
+    /* ── FAQ ── */
+    .faq {
+      position: relative;
+      z-index: 1;
+      padding: 20px 24px 80px;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .faq .section-title { text-align: center; }
+    .faq-list { display: flex; flex-direction: column; gap: 12px; }
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .faq-item.open { border-color: rgba(0,47,167,0.5); }
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      text-align: left;
+      padding: 22px 28px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      line-height: 1.4;
+    }
+    .faq-q:hover { color: var(--accent); }
+    .faq-chevron {
+      flex-shrink: 0;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--surface2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem;
+      transition: transform 0.25s ease, background 0.2s;
+    }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); background: rgba(0,47,167,0.4); }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.25s ease;
+      padding: 0 28px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .faq-item.open .faq-a {
+      max-height: 300px;
+      padding: 0 28px 22px;
+    }
+    .faq-a a { color: var(--accent); text-decoration: none; }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 28px 24px;
+      border-top: 1px solid var(--border);
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 20px 24px; }
+      .code-card { padding: 24px; gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-blob blob-1"></div>
+  <div class="bg-blob blob-2"></div>
+  <div class="bg-blob blob-3"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-brand">visible<span>*</span> referral</div>
+    <div class="nav-pill">Official Offer</div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Get <span class="highlight">$20 off</span><br/>your first month on Visible</h1>
+    <p class="hero-sub">
+      Unlimited data, calls &amp; texts on a top-tier national network — no annual contract, no hidden fees. Use a friend's referral and save on day one.
+    </p>
+    <div class="cta-wrap">
+      <a href="https://www.visible.com/get/?69FP8DN" target="_blank" rel="noopener" class="btn-primary">
+        Claim Offer on Visible.com <span class="btn-arrow">→</span>
+      </a>
+      <div class="cta-note">Referral code: <strong>69FP8DN</strong> — applied automatically via the link above</div>
+    </div>
+  </section>
+
+  <!-- REFERRAL CODE CARD -->
+  <div class="code-section">
+    <div class="code-card">
+      <div>
+        <div class="code-label">Your referral code</div>
+        <div class="code-value" id="code">69FP8DN</div>
+      </div>
+      <button class="copy-btn" onclick="copyCode()" id="copyBtn">
+        <span id="copyIcon">📋</span>
+        <span id="copyText">Copy Code</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📶</div>
+        <div class="feature-title">Unlimited Everything</div>
+        <div class="feature-desc">Unlimited data, calls, and texts — no surprise overages or speed throttling on your base plan.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <div class="feature-title">National Network Coverage</div>
+        <div class="feature-desc">Runs on one of the largest 4G LTE and 5G networks in the United States.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💳</div>
+        <div class="feature-title">No Annual Contract</div>
+        <div class="feature-desc">Month-to-month flexibility. Cancel anytime — no early termination fees, ever.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏷️</div>
+        <div class="feature-title">One Simple Price</div>
+        <div class="feature-desc">Taxes and fees included in the monthly price. What you see is what you pay.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <div class="feature-title">Bring Your Own Phone</div>
+        <div class="feature-desc">Keep your existing device if it's compatible, or grab a new one at checkout.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎁</div>
+        <div class="feature-title">Referral Savings</div>
+        <div class="feature-desc">Use code <strong style="color:var(--accent)">69FP8DN</strong> at signup and get $20 off your first month automatically.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how">
+    <h2 class="section-title">How to claim your discount</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Click the referral link</h3>
+          <p>Use the button above or go directly to <strong>visible.com/get/?69FP8DN</strong> — the referral code is embedded in the URL.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Choose your plan</h3>
+          <p>Pick the Visible or Visible+ plan that fits your needs. Both qualify for the referral discount.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Enter the code if prompted</h3>
+          <p>If the discount isn't automatically applied, enter code <strong style="color:var(--accent)">69FP8DN</strong> in the referral field at checkout.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>Enjoy your first month discounted</h3>
+          <p>The $20 credit is applied to your first bill. Welcome to Visible!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM CTA -->
+  <section class="bottom-cta">
+    <h2 class="section-title" style="margin-bottom:28px">Ready to switch?</h2>
+    <a href="https://www.visible.com/get/?69FP8DN" target="_blank" rel="noopener" class="btn-primary">
+      Get Started on Visible.com <span class="btn-arrow">→</span>
+    </a>
+    <p>
+      This is an independent referral page and is not affiliated with or endorsed by Visible.<br/>
+      Visit <a href="https://www.visible.com" target="_blank" rel="noopener">visible.com</a> for official plan details, terms, and pricing.
+    </p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What is Visible Wireless?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">Visible is a wireless carrier owned by Verizon that offers unlimited data, calls, and texts on Verizon's nationwide 4G LTE and 5G network. It's an all-digital, app-based carrier with no physical stores — which keeps costs low and plans simple.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How does the $20 referral discount work?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">When you sign up using the referral link or enter code <strong style="color:var(--accent)">69FP8DN</strong> at checkout, Visible applies a $20 credit to your first month's bill. The discount is applied automatically — no coupon clipping required.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Do I need to sign a contract?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">No. Visible is entirely month-to-month. There are no annual contracts, no early termination fees, and no credit checks. You can cancel at any time before your next billing cycle and won't be charged again.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Can I keep my current phone number?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">Yes. You can port your existing number to Visible during the signup process. Just make sure not to cancel your current plan before the transfer is complete — your old number will move over automatically once the port is finalized.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Will my current phone work on Visible?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">Most unlocked iPhones and Android devices are compatible. You can check your device's compatibility on the Visible website before you sign up. If your phone isn't compatible, Visible also sells devices directly at checkout.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What's the difference between Visible and Visible+?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">The standard Visible plan runs on Verizon's 4G LTE and 5G Nationwide network. Visible+ adds access to Verizon's premium 5G Ultra Wideband network, international calling to over 30 countries, and a higher data priority tier. Both plans are unlimited and contract-free.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Is this page affiliated with Visible?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">No. This is an independent referral page created by a Visible customer to share their referral code. It is not affiliated with, sponsored by, or endorsed by Visible or Verizon. Visit <a href="https://www.visible.com" target="_blank" rel="noopener">visible.com</a> for official information.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    Independent referral page &nbsp;·&nbsp; Not affiliated with Visible or Verizon &nbsp;·&nbsp; Referral code: 69FP8DN<br/>
+    All plan details, pricing, and availability subject to change. See <a href="https://www.visible.com" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">visible.com</a> for current terms.
+  </footer>
+
+  <script>
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    function copyCode() {
+      navigator.clipboard.writeText('69FP8DN').then(() => {
+        const btn = document.getElementById('copyBtn');
+        const icon = document.getElementById('copyIcon');
+        const text = document.getElementById('copyText');
+        btn.classList.add('copied');
+        icon.textContent = '✅';
+        text.textContent = 'Copied!';
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          icon.textContent = '📋';
+          text.textContent = 'Copy Code';
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
