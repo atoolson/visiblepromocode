@@ -453,7 +453,7 @@
       Unlimited data, calls &amp; texts on a top-tier national network — no annual contract, no hidden fees. Use a friend's referral and save on day one.
     </p>
     <div class="cta-wrap">
-      <a href="https://www.visible.com/get/?69FP8DN" target="_blank" rel="noopener" class="btn-primary">
+      <a href="https://www.visible.com/get/?69FP8DN" target="_blank" rel="noopener" class="btn-primary" onclick="gtag('event', 'link_clicked', { 'event_category': 'Referral', 'event_label': 'Claim Offer Button' });">
         Claim Offer on Visible.com <span class="btn-arrow">→</span>
       </a>
       <div class="cta-note">Referral code: <strong>69FP8DN</strong> — applied automatically via the link above</div>
@@ -636,19 +636,58 @@
     }
 
     function copyCode() {
-      navigator.clipboard.writeText('69FP8DN').then(() => {
+      // Fallback for older browsers or non-secure contexts if needed, but clipboard API should work on HTTPS
+      try {
+        navigator.clipboard.writeText('69FP8DN').then(() => {
+          gtag('event', 'code_copied', { 'event_category': 'Referral', 'event_label': '69FP8DN' });
+          const btn = document.getElementById('copyBtn');
+          const icon = document.getElementById('copyIcon');
+          const text = document.getElementById('copyText');
+          btn.classList.add('copied');
+          icon.textContent = '✅';
+          text.textContent = 'Copied!';
+          setTimeout(() => {
+            btn.classList.remove('copied');
+            icon.textContent = '📋';
+            text.textContent = 'Copy Code';
+          }, 2000);
+        }).catch(err => {
+          console.error('Failed to copy text: ', err);
+          fallbackCopyTextToClipboard('69FP8DN');
+        });
+      } catch (err) {
+        fallbackCopyTextToClipboard('69FP8DN');
+      }
+    }
+
+    function fallbackCopyTextToClipboard(text) {
+      var textArea = document.createElement("textarea");
+      textArea.value = text;
+      // Avoid scrolling to bottom
+      textArea.style.top = "0";
+      textArea.style.left = "0";
+      textArea.style.position = "fixed";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        gtag('event', 'code_copied', { 'event_category': 'Referral', 'event_label': text });
         const btn = document.getElementById('copyBtn');
         const icon = document.getElementById('copyIcon');
-        const text = document.getElementById('copyText');
+        const textEl = document.getElementById('copyText');
         btn.classList.add('copied');
         icon.textContent = '✅';
-        text.textContent = 'Copied!';
+        textEl.textContent = 'Copied!';
         setTimeout(() => {
           btn.classList.remove('copied');
           icon.textContent = '📋';
-          text.textContent = 'Copy Code';
+          textEl.textContent = 'Copy Code';
         }, 2000);
-      });
+      } catch (err) {
+        console.error('Fallback: Oops, unable to copy', err);
+      }
+      document.body.removeChild(textArea);
     }
   </script>
 </body>
